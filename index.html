@@ -9,7 +9,7 @@
     <h1>クイズ</h1>
     <div id="nameForm">
         <label>名前を入力してください：</label>
-        <input type="text" id="username">
+        <input type="text" id="username" required>
         <button onclick="startQuiz()">開始</button>
     </div>
 
@@ -63,7 +63,7 @@
                 headers: { "Content-Type": "application/json" }
             }).then(response => response.text())
             .then(data => alert("回答が送信されました！"))
-            .catch(error => alert("エラーが発生しました"));
+            .catch(error => alert("エラーが発生しました: " + error.message));
             
             document.getElementById("quizContainer").style.display = "none";
         }
