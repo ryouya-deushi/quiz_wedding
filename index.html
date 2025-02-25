@@ -3,37 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>クイズフォーム</title>
+    <title>クイズ</title>
 </head>
 <body>
-    <form id="quiz-form">
-        <label for="answer">回答:</label>
-        <input type="text" id="answer" name="answer" required>
-        <button type="submit">送信</button>
+    <h1>クイズ</h1>
+    <form id="quizForm">
+        <label for="question1">1. 日本の首都は？</label><br>
+        <input type="text" id="question1" name="question1"><br><br>
+        <input type="submit" value="送信">
     </form>
 
     <script>
-        document.getElementById('quiz-form').addEventListener('submit', async function(event) {
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const answer = document.getElementById('answer').value;
-
-            const response = await fetch('https://sheets.googleapis.com/v4/spreadsheets/1jtIOe62VFh3sIp4KJbfNXUvjeNakG3kSyYbbpq5M8x0/values/QuizResut!A1:append', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
-                },
-                body: JSON.stringify({
-                    values: [[answer]]
-                })
-            });
-
-            if (response.ok) {
-                alert('回答が正常に送信されました！');
-            } else {
-                alert('回答の送信に失敗しました。');
-            }
+            const answer = document.getElementById('question1').value;
+            sendToGoogleSheets(answer);
         });
+
+        function sendToGoogleSheets(answer) {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycby_hG3yIPpbszmuURwPAVg3sAX0-E6arb7PTbVyEIyHPg8CPa-Gl9xUu0tKm0urpB3JWA/exec';
+            fetch(scriptURL, {
+                method: 'POST',
+                body: new URLSearchParams({ 'answer': answer })
+            })
+            .then(response => alert('回答が送信されました！'))
+            .catch(error => console.error('Error!', error.message));
+        }
     </script>
 </body>
 </html>
