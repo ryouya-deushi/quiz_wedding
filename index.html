@@ -3,70 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>クイズ</title>
+    <title>クイズフォーム</title>
 </head>
 <body>
-    <h1>クイズ</h1>
-    <div id="nameForm">
-        <label>名前を入力してください：</label>
-        <input type="text" id="username" required>
-        <button onclick="startQuiz()">開始</button>
-    </div>
-
-    <div id="quizContainer" style="display:none;">
-        <p id="question"></p>
-        <button onclick="submitAnswer('A')">A</button>
-        <button onclick="submitAnswer('B')">B</button>
-        <button onclick="submitAnswer('C')">C</button>
-    </div>
+    <form id="quiz-form">
+        <label for="answer">回答:</label>
+        <input type="text" id="answer" name="answer" required>
+        <button type="submit">送信</button>
+    </form>
 
     <script>
-        const questions = [
-            "好きな色は？（A: 赤 / B: 青 / C: 緑）",
-            "好きな動物は？（A: 犬 / B: 猫 / C: うさぎ）",
-            "好きな季節は？（A: 春 / B: 夏 / C: 冬）"
-        ];
+        document.getElementById('quiz-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const answer = document.getElementById('answer').value;
 
-        let currentQuestion = 0;
-        let userName = "";
-        let userAnswers = [];
+            const response = await fetch('https://sheets.googleapis.com/v4/spreadsheets/1jtIOe62VFh3sIp4KJbfNXUvjeNakG3kSyYbbpq5M8x0/values/QuizResut!A1:append', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+                },
+                body: JSON.stringify({
+                    values: [[answer]]
+                })
+            });
 
-        function startQuiz() {
-            userName = document.getElementById("username").value;
-            if (!userName) {
-                alert("名前を入力してください！");
-                return;
-            }
-            document.getElementById("nameForm").style.display = "none";
-            document.getElementById("quizContainer").style.display = "block";
-            showQuestion();
-        }
-
-        function showQuestion() {
-            if (currentQuestion < questions.length) {
-                document.getElementById("question").textContent = questions[currentQuestion];
+            if (response.ok) {
+                alert('回答が正常に送信されました！');
             } else {
-                sendAnswers();
+                alert('回答の送信に失敗しました。');
             }
-        }
-
-        function submitAnswer(answer) {
-            userAnswers.push(answer);
-            currentQuestion++;
-            showQuestion();
-        }
-
-        function sendAnswers() {
-            fetch("https://script.google.com/macros/s/AKfycbyp0c41TlFpdaGNTj3gZu3r1lDibls7eDaKutnx04txiTOiSbqCHp83Hfwlz80EyfM/exec", {
-                method: "POST",
-                body: JSON.stringify({ name: userName, answers: userAnswers }),
-                headers: { "Content-Type": "application/json" }
-            }).then(response => response.text())
-            .then(data => alert("回答が送信されました！"))
-            .catch(error => alert("エラーが発生しました: " + error.message));
-            
-            document.getElementById("quizContainer").style.display = "none";
-        }
+        });
     </script>
 </body>
 </html>
