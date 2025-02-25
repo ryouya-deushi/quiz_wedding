@@ -21,7 +21,7 @@
         });
 
         function sendToGoogleSheets(answer) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycby_hG3yIPpbszmuURwPAVg3sAX0-E6arb7PTbVyEIyHPg8CPa-Gl9xUu0tKm0urpB3JWA/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzek8-Yu8r7_4JXeofO4LX5Ws1AB3VgG-E1UuDy-xNRNF2Ff4GUc8A_sOGNNHX2cuIZzw/exec';
             fetch(scriptURL, {
                 method: 'POST',
                 body: new URLSearchParams({ 'answer': answer })
