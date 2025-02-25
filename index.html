@@ -1,3 +1,4 @@
+<!-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -16,5 +17,79 @@
         <button class="answer-btn">答え4</button>
     </div>
     <script src="script.js"></script>
+</body>
+</html>
+->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ</title>
+</head>
+<body>
+    <h1>クイズ</h1>
+    <div id="nameForm">
+        <label>名前を入力してください：</label>
+        <input type="text" id="username">
+        <button onclick="startQuiz()">開始</button>
+    </div>
+
+    <div id="quizContainer" style="display:none;">
+        <p id="question"></p>
+        <button onclick="submitAnswer('A')">A</button>
+        <button onclick="submitAnswer('B')">B</button>
+        <button onclick="submitAnswer('C')">C</button>
+    </div>
+
+    <script>
+        const questions = [
+            "好きな色は？（A: 赤 / B: 青 / C: 緑）",
+            "好きな動物は？（A: 犬 / B: 猫 / C: うさぎ）",
+            "好きな季節は？（A: 春 / B: 夏 / C: 冬）"
+        ];
+
+        let currentQuestion = 0;
+        let userName = "";
+        let userAnswers = [];
+
+        function startQuiz() {
+            userName = document.getElementById("username").value;
+            if (!userName) {
+                alert("名前を入力してください！");
+                return;
+            }
+            document.getElementById("nameForm").style.display = "none";
+            document.getElementById("quizContainer").style.display = "block";
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestion < questions.length) {
+                document.getElementById("question").textContent = questions[currentQuestion];
+            } else {
+                sendAnswers();
+            }
+        }
+
+        function submitAnswer(answer) {
+            userAnswers.push(answer);
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function sendAnswers() {
+            fetch("GASのウェブアプリURL", {
+                method: "POST",
+                body: JSON.stringify({ name: userName, answers: userAnswers }),
+                headers: { "Content-Type": "application/json" }
+            }).then(response => response.text())
+            .then(data => alert("回答が送信されました！"))
+            .catch(error => alert("エラーが発生しました"));
+            
+            document.getElementById("quizContainer").style.display = "none";
+        }
+    </script>
 </body>
 </html>
