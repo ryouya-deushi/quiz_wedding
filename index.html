@@ -80,7 +80,7 @@
         }
 
         function sendAnswers() {
-            fetch("GASのウェブアプリURL", {
+            fetch("https://script.google.com/macros/s/AKfycbyTFA46OwnWdsWnE0UJUni22penHrbHlXpRuMLUhYONpx4imLJQ4YTzUh8TF--HG-kI/exec", {
                 method: "POST",
                 body: JSON.stringify({ name: userName, answers: userAnswers }),
                 headers: { "Content-Type": "application/json" }
