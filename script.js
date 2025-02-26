@@ -27,8 +27,11 @@ const quizData = [
 
 const quiz = document.getElementById('quiz');
 const submitBtn = document.getElementById('submit');
+const results = document.getElementById('results');
 
 let currentQuiz = 0;
+let score = 0;
+let quizResults = [];
 
 function loadQuiz() {
     const currentQuizData = quizData[currentQuiz];
@@ -67,11 +70,31 @@ function getSelected() {
 submitBtn.addEventListener('click', () => {
     const answer = getSelected();
     if (answer) {
+        if (answer === quizData[currentQuiz].correct) {
+            score++;
+        }
+        quizResults.push({
+            question: quizData[currentQuiz].question,
+            answer: answer
+        });
         currentQuiz++;
         if (currentQuiz < quizData.length) {
             loadQuiz();
         } else {
-            quiz.innerHTML = "クイズが終了しました。お疲れ様でした！";
+            fetch('https://script.google.com/macros/s/AKfycbxO2_1FtV25FqIy8Reo-zvTUhfUHgPTNjbrXTFLQwsPz0nuVHZZsFMUnmtwGVWRfpg5/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(quizResults)
+            })
+            .then(response => response.text())
+            .then(data => {
+                quiz.innerHTML = `クイズが終了しました。お疲れ様でした！<br>あなたのスコアは ${score}/${quizData.length} です。`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     }
 });
