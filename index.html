@@ -12,6 +12,7 @@
         <input type="text" id="question1" name="question1"><br><br>
         <input type="submit" value="送信">
     </form>
+    <div id="errorMessage" style="color: red;"></div>
 
     <script>
         document.getElementById('quizForm').addEventListener('submit', function(event) {
@@ -26,8 +27,18 @@
                 method: 'POST',
                 body: new URLSearchParams({ 'answer': answer })
             })
-            .then(response => alert('回答が送信されました！'))
-            .catch(error => console.error('Error!', error.message));
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.body.innerHTML = '<h1>ありがとうございました！</h1><p>回答が送信されました。</p>';
+            })
+            .catch(error => {
+                document.getElementById('errorMessage').textContent = 'Error: ' + error.message;
+            });
         }
     </script>
 </body>
