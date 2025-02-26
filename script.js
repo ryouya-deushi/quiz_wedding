@@ -57,7 +57,7 @@ function loadQuiz() {
         `;
     } else {
         submitBtn.disabled = true; // 送信ボタンを無効化
-        fetch('https://script.google.com/macros/s/AKfycbxSgR3VKzuCbs_5tdKgiSDn7rlZETGInNlxcYHe9fxQY48_mZqLSS-fWLcQiDggmIrZ/exec', {
+        fetch('https://script.google.com/macros/s/AKfycby7VssMeZ_Ees2p2N9DL5fuDQki2ubisoeSMdt7NP6HPmbyLfI-Pv3QNtoUr6yfUwq2/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
