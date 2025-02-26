@@ -3,54 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>クイズ</title>
+    <title>クイズアプリ</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>クイズ</h1>
-    <form id="quizForm">
-        <label for="question1">1. 日本の首都は？</label><br>
-        <input type="text" id="question1" name="question1" required><br><br>
-        <input type="submit" value="送信">
-    </form>
-    <div id="message"></div>
-    <div id="errorMessage" style="color: red;"></div>
-
-    <script>
-        document.getElementById('quizForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const answer = document.getElementById('question1').value.trim();
-
-            if (answer === '') {
-                document.getElementById('errorMessage').textContent = '回答を入力してください。';
-                return;
-            }
-
-            sendToGoogleSheets(answer);
-        });
-
-        function sendToGoogleSheets(answer) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzsWXmkvwRwZ0TqqYEu2Eu4yzkr3agM4LqrUbI5tLXNX4QNCCmSWtFafwWfiQ0uSyDHUA/exec';
-            
-            fetch(scriptURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ 'answer': answer })
-            })
-            .then(response => {
-                const contentType = response.headers.get('content-type');
-                if (!response.ok) {
-                    throw new Error(`サーバーエラー: ${response.status} ${response.statusText}`);
-                }
-                return contentType && contentType.includes('application/json') ? response.json() : response.text();
-            })
-            .then(data => {
-                document.getElementById('quizForm').style.display = 'none';
-                document.getElementById('message').innerHTML = '<h2>ありがとうございました！</h2><p>回答が送信されました。</p>';
-            })
-            .catch(error => {
-                document.getElementById('errorMessage').textContent = '送信エラー: ' + error.message;
-            });
-        }
-    </script>
+    <div class="quiz-container">
+        <div id="quiz"></div>
+        <button id="submit">送信</button>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
