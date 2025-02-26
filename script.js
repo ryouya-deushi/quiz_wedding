@@ -34,26 +34,44 @@ let score = 0;
 let quizResults = [];
 
 function loadQuiz() {
-    const currentQuizData = quizData[currentQuiz];
-    quiz.innerHTML = `
-        <div class="question">${currentQuizData.question}</div>
-        <label>
-            <input type="radio" name="answer" value="a">
-            ${currentQuizData.a}
-        </label>
-        <label>
-            <input type="radio" name="answer" value="b">
-            ${currentQuizData.b}
-        </label>
-        <label>
-            <input type="radio" name="answer" value="c">
-            ${currentQuizData.c}
-        </label>
-        <label>
-            <input type="radio" name="answer" value="d">
-            ${currentQuizData.d}
-        </label>
-    `;
+    if (currentQuiz < quizData.length) {
+        const currentQuizData = quizData[currentQuiz];
+        quiz.innerHTML = `
+            <div class="question">${currentQuizData.question}</div>
+            <label>
+                <input type="radio" name="answer" value="a">
+                ${currentQuizData.a}
+            </label>
+            <label>
+                <input type="radio" name="answer" value="b">
+                ${currentQuizData.b}
+            </label>
+            <label>
+                <input type="radio" name="answer" value="c">
+                ${currentQuizData.c}
+            </label>
+            <label>
+                <input type="radio" name="answer" value="d">
+                ${currentQuizData.d}
+            </label>
+        `;
+    } else {
+        submitBtn.disabled = true; // 送信ボタンを無効化
+        fetch('https://script.google.com/macros/s/AKfycbxSgR3VKzuCbs_5tdKgiSDn7rlZETGInNlxcYHe9fxQY48_mZqLSS-fWLcQiDggmIrZ/exec', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(quizResults)
+        })
+        .then(response => response.text())
+        .then(data => {
+            quiz.innerHTML = `クイズが終了しました。お疲れ様でした！<br>あなたのスコアは ${score}/${quizData.length} です。`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
 }
 
 function getSelected() {
@@ -78,24 +96,7 @@ submitBtn.addEventListener('click', () => {
             answer: answer
         });
         currentQuiz++;
-        if (currentQuiz < quizData.length) {
-            loadQuiz();
-        } else {
-            fetch('https://script.google.com/macros/s/AKfycbxO2_1FtV25FqIy8Reo-zvTUhfUHgPTNjbrXTFLQwsPz0nuVHZZsFMUnmtwGVWRfpg5/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(quizResults)
-            })
-            .then(response => response.text())
-            .then(data => {
-                quiz.innerHTML = `クイズが終了しました。お疲れ様でした！<br>あなたのスコアは ${score}/${quizData.length} です。`;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
+        loadQuiz();
     }
 });
 
