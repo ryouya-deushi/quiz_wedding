@@ -22,7 +22,7 @@
         });
 
         function sendToGoogleSheets(answer) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwr8LUWK9eqApVdAF7ZZOQu5YxyZkaoxD0PQiz3nWBpCy0eJJQTT6nVJTdpG0K9k00LTw/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzsWXmkvwRwZ0TqqYEu2Eu4yzkr3agM4LqrUbI5tLXNX4QNCCmSWtFafwWfiQ0uSyDHUA/exec';
             fetch(scriptURL, {
                 method: 'POST',
                 body: new URLSearchParams({ 'answer': answer })
