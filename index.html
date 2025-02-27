@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>クイズ</title>
+	<title>Quiz</title>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -17,24 +17,30 @@
 		}
 	</style>
 </head>
+
 <body>
-	<h1>クイズ</h1>
+	<h1>Quiz</h1>
 	<div id="loginSection" class="input-section">
 		<p>パスワードを入力してください：</p>
-		<input type="text" id="passwdBox" placeholder="ここに入力してください">
+		<input type="text" id="passwdBox" placeholder="ここに入力してください"><br><br>
 		<input type="button" id="passwdBtn" value="認証" onclick="receiveForm()">
 		<p id="resultBox"></p>
 	</div>
+
 	<form id="testForm">
 		<div id="inputNameSection" class="input-section">
 			<p>名前を入力してください：</p>
 			<input type="text" id="inputNameBox" name="inputNameBox" placeholder="ここに入力してください"><br><br>
-			<input type="button" id="inputNameBtn" value="完了" onclick="startQuiz('questionContainer1')">
+			<input type="button" id="inputNameBtn" value="next->" onclick="startQuiz('questionContainer1')">
 		</div>
+
 		<!-- 質問1-->
 		<div id="questionContainer1" class="input-section">
 			<h2 id="welcomeMessage"></h2>
-	        <p>質問1: 日本の首都は？</p>
+			<h2>クイズにご参加いただきありがとうございます！</h2>
+			<h2>楽しみながら挑戦していただければ幸いです</h2>
+			<h3>高得点の人には景品があるかも？</h3>
+	        <p>Q1: 日本の首都は？</p>
 	        <input type="radio" id="q1_a" name="question1" value="大阪">
 	        <label for="q1_a">大阪</label><br>
 
@@ -44,11 +50,13 @@
 	        <input type="radio" id="q1_c" name="question1" value="京都">
 	        <label for="q1_c">京都</label><br><br>
 
-	        <input type="button" id="nextBtn1" value="次へ" onclick="showNextSection('questionContainer2')">
+	        <input type="button" id="preBtn1" value="<-back" onclick="showPreviousSection()">
+			<input type="button" id="nextBtn1" value="next->" onclick="showNextSection('questionContainer2', 'question1')">
 	    </div>
+
 	    <!-- 質問2-->
 	    <div id="questionContainer2" class="input-section">
-	        <p>質問2: 世界で一番高い山は？</p>
+	        <p>Q2: 世界で一番高い山は？</p>
 	        <input type="radio" id="q2_a" name="question2" value="エベレスト">
 	        <label for="q2_a">エベレスト</label><br>
 
@@ -58,24 +66,57 @@
 	        <input type="radio" id="q2_c" name="question2" value="モンブラン">
 	        <label for="q2_c">モンブラン</label><br><br>
 
-	        <input type="button" id="submitBtn" value="送信" onclick="submitForm()">
+	        <input type="button" id="preBtn2" value="<-back" onclick="showPreviousSection()">
+			<input type="button" id="submitBtn" value="submit" onclick="submitForm('question2')">
 	    </div>
+
 	</form>
+
 	<div id="exitSection" class="input-section">
-	<h2>ご回答ありがとうございました!</h2>
+	<h2>ご回答ありがとうございました</h2><br>
+	<h2>Have a great time!!!</h2><br>
+	<h3>※二回目の回答はお控えください</h3>
+	
 	</div>
 
 	<script>
 		document.getElementById('loginSection').style.display = 'block';
 		
-		
-		function showNextSection(sectionId) {
-			console.log("Showing section: " + sectionId);
+		function authenticate(sectionId) {
 			const currentSection = document.querySelector('.input-section:not([style*="display: none"])');
 			if (currentSection) {
+				sectionHistory.push(currentSection.id);
 				currentSection.style.display = 'none';
 			}
 			document.getElementById(sectionId).style.display = 'block';
+		}
+
+		const sectionHistory = [];
+		function showNextSection(sectionId, questionName) {
+			const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+			if (!selectedOption) {
+				alert("選択してください");
+				return;
+			}
+
+			const currentSection = document.querySelector('.input-section:not([style*="display: none"])');
+			if (currentSection) {
+				sectionHistory.push(currentSection.id);
+				currentSection.style.display = 'none';
+			}
+			document.getElementById(sectionId).style.display = 'block';
+		}
+
+		function showPreviousSection() {
+			if (sectionHistory.length > 0) {
+				const previousSectionId = sectionHistory.pop();
+				const currentSection = document.querySelector('.input-section:not([style*="display: none"])');
+				if (currentSection) {
+					currentSection.style.display = 'none';
+				}
+				
+				document.getElementById(previousSectionId).style.display = 'block';
+			}
 		}
 		
 		
@@ -88,13 +129,12 @@
 				alert("名前は10文字以内で入力してください。");
 				return;
 			}
-			document.getElementById("welcomeMessage").innerText = `${name} さん、クイズを始めましょう！`;
-			showNextSection(sectionId);
+			document.getElementById("welcomeMessage").innerText = `${name}様、`;
+			authenticate(sectionId);
 		}
 		
 		
 		const url = "https://script.google.com/macros/s/AKfycbzL31iwqTDoJdt-n17ACUcm75dl68Uy5YvHgoPtWZWsqVvEJMVfjcNY3ybA3rrbznbswg/exec";
-		
 		function receiveForm() {
 			document.getElementById("passwdBtn").disabled = true;
 
@@ -109,7 +149,7 @@
 			.then(data => {
 			const cellValue = data.cellValue;
 			if (inputValue == cellValue) {
-			  showNextSection('inputNameSection');
+				authenticate('inputNameSection');
 			} else {
 			  document.getElementById("resultBox").innerText = "パスワードが間違っています。再度入力してください。";
 			  document.getElementById("passwdBtn").disabled = false;
@@ -135,7 +175,7 @@
 			.then(response => response.json())
 			.then(response => {
 	            if (response.result === true) {
-	            	showNextSection('exitSection');
+	            	showNextSection('exitSection', 'question2');
 	            } else {
 	                alert("送信失敗。もう一度試してください。");
 	                document.getElementById("submitBtn").disabled = false;
