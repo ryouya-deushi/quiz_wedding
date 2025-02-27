@@ -25,49 +25,24 @@
         <input type="button" id="passwdBtn" value="認証" onclick="receiveForm()">
         <p id="resultBox"></p>
     </div>
-    <div id="inputNameSection" class="input-section">
-        <p>名前を入力してください：</p>
-        <input type="text" id="inputNameBox" placeholder="ここに入力してください"><br><br>
-        <input type="button" id="inputNameBtn" value="完了" onclick="startQuiz('quizSection')">
-    </div>
-    <div id="quizSection" class="input-section">
-        <h2 id="welcomeMessage"></h2>
-	    <form id="testForm">
-	        <label for="question1">質問1:</label>
-	        <input type="text" id="question1" name="question1"><br><br>
-	        <label for="question2">質問2:</label>
-	        <input type="text" id="question2" name="question2"><br><br>
-	        <input type="button" value="送信" onclick="submitForm()"><br><br>
-	    </form>
-	</div>
-	
+    <form id="testForm">
+	    <div id="inputNameSection" class="input-section">
+	        <p>名前を入力してください：</p>
+	        <input type="text" id="inputNameBox" name="inputNameBox" placeholder="ここに入力してください"><br><br>
+	        <input type="button" id="inputNameBtn" value="完了" onclick="startQuiz('quizSection')">
+	    </div>
+	    <div id="quizSection" class="input-section">
+	        <h2 id="welcomeMessage"></h2>
+		    
+		        <label for="question1">質問1:</label>
+		        <input type="text" id="question1" name="question1"><br><br>
+		        <label for="question2">質問2:</label>
+		        <input type="text" id="question2" name="question2"><br><br>
+		        <input type="button" value="送信" onclick="submitForm()"><br><br>
+		</div>
+	</form>
     <script>
     	document.getElementById('loginSection').style.display = 'block';
-    	
-    	const url = "https://script.google.com/macros/s/AKfycbzL31iwqTDoJdt-n17ACUcm75dl68Uy5YvHgoPtWZWsqVvEJMVfjcNY3ybA3rrbznbswg/exec";
-    	
-    	function receiveForm() {
-            document.getElementById("passwdBtn").disabled = true;
-
-            const inputValue = document.getElementById('passwdBox').value;
-
-            const GET_options = {
-                method: "GET",
-            };
-
-            fetch(url, GET_options)
-            .then(response => response.json())
-            .then(data => {
-            const cellValue = data.cellValue;
-            if (inputValue == cellValue) {
-              showNextSection('inputNameSection');
-            } else {
-              document.getElementById("resultBox").innerText = "パスワードが間違っています。再度入力してください。";
-              document.getElementById("passwdBtn").disabled = false;
-            }
-            })
-            .catch((error) => {console.error('Error:', error);});
-        }
         
         
     	function showNextSection(sectionId) {
@@ -92,6 +67,31 @@
             showNextSection(sectionId);
         }
         
+        
+        const url = "https://script.google.com/macros/s/AKfycbzL31iwqTDoJdt-n17ACUcm75dl68Uy5YvHgoPtWZWsqVvEJMVfjcNY3ybA3rrbznbswg/exec";
+    	
+    	function receiveForm() {
+            document.getElementById("passwdBtn").disabled = true;
+
+            const inputValue = document.getElementById('passwdBox').value;
+
+            const GET_options = {
+                method: "GET",
+            };
+
+            fetch(url, GET_options)
+            .then(response => response.json())
+            .then(data => {
+            const cellValue = data.cellValue;
+            if (inputValue == cellValue) {
+              showNextSection('inputNameSection');
+            } else {
+              document.getElementById("resultBox").innerText = "パスワードが間違っています。再度入力してください。";
+              document.getElementById("passwdBtn").disabled = false;
+            }
+            })
+            .catch((error) => {console.error('Error:', error);});
+        }
         
         function submitForm() {
             const formData = new FormData(document.getElementById('testForm'));
