@@ -68,7 +68,10 @@
 	        <label for="q1_b">東京</label><br>
 
 	        <input type="radio" id="q1_c" name="question1" value="京都">
-	        <label for="q1_c">京都</label><br><br>
+	        <label for="q1_c">京都</label><br>
+
+			<input type="radio" id="q1_d" name="question1" value="北海道">
+	        <label for="q1_d">北海道</label><br><br>
 
 	        <input type="button" id="preBtn1" value="<-back" onclick="showPreviousSection()">
 			<input type="button" id="nextBtn1" value="next->" onclick="showNextSection('questionContainer2', 'question1')">
@@ -84,10 +87,32 @@
 	        <label for="q2_b">富士山</label><br>
 
 	        <input type="radio" id="q2_c" name="question2" value="モンブラン">
-	        <label for="q2_c">モンブラン</label><br><br>
+	        <label for="q2_c">モンブラン</label><br>
+
+			<input type="radio" id="q2_d" name="question2" value="ぽにぽに">
+	        <label for="q2_d">ぽにぽに</label><br><br>
 
 	        <input type="button" id="preBtn2" value="<-back" onclick="showPreviousSection()">
-			<input type="button" id="submitBtn" value="submit" onclick="submitForm('question2')">
+			<input type="button" id="nextBtn2" value="next->" onclick="showNextSection('questionContainer3', 'question2')">
+	    </div>
+
+		<!-- 質問3-->
+	    <div id="questionContainer3" class="input-section">
+	        <p>Q3: みづきが好きなポケモンは？</p>
+	        <input type="radio" id="q3_a" name="question3" value="ピカチュウ">
+	        <label for="q3_a">ピカチュウ</label><br>
+
+	        <input type="radio" id="q3_b" name="question3" value="パモ">
+	        <label for="q3_b">パモ</label><br>
+
+	        <input type="radio" id="q3_c" name="question3" value="デデンネ">
+	        <label for="q3_c">デデンネ</label><br>
+
+			<input type="radio" id="q3_d" name="question3" value="リザードン">
+	        <label for="q3_d">リザードン</label><br><br>
+
+	        <input type="button" id="preBtn3" value="<-back" onclick="showPreviousSection()">
+			<input type="button" id="submitBtn" value="submit" onclick="submitForm('question3')">
 	    </div>
 
 	</form>
