@@ -1,37 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <title>テストフォーム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .input-section {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <form id="testForm">
-    <label for="question1">質問1:</label>
-    <input type="text" id="question1" name="question1"><br><br>
-    <label for="question2">質問2:</label>
-    <input type="text" id="question2" name="question2"><br><br>
-    <input type="button" value="送信" onclick="submitForm()">
-  </form>
+    <h1>クイズ</h1>
+    <div id="loginSection" class="input-section">
+        <p>パスワードを入力してください：</p>
+        <input type="text" id="passwdBox" placeholder="ここに入力してください">
+        <input type="button" id="passwdBtn" value="認証" onclick="receiveForm()">
+        <p id="resultBox"></p>
+    </div>
+    <div id="inputNameSection" class="input-section">
+        <p>名前を入力してください：</p>
+        <input type="text" id="inputNameBox" placeholder="ここに入力してください"><br><br>
+        <input type="button" id="inputNameBtn" value="完了" onclick="startQuiz('quizSection')">
+    </div>
+    <div id="quizSection" class="input-section">
+        <h2 id="welcomeMessage"></h2>
+	    <form id="testForm">
+	        <label for="question1">質問1:</label>
+	        <input type="text" id="question1" name="question1"><br><br>
+	        <label for="question2">質問2:</label>
+	        <input type="text" id="question2" name="question2"><br><br>
+	        <input type="button" value="送信" onclick="submitForm()"><br><br>
+	    </form>
+	</div>
+	
+    <script>
+    	document.getElementById('loginSection').style.display = 'block';
+    	
+    	const url = "https://script.google.com/macros/s/AKfycbzL31iwqTDoJdt-n17ACUcm75dl68Uy5YvHgoPtWZWsqVvEJMVfjcNY3ybA3rrbznbswg/exec";
+    	
+    	function receiveForm() {
+            document.getElementById("passwdBtn").disabled = true;
 
-  <script>
-    function submitForm() {
-      const formData = new FormData(document.getElementById('testForm'));
-      const data = {};
-      formData.forEach((value, key) => {
-        data[key] = value;
-      });
+            const inputValue = document.getElementById('passwdBox').value;
 
-      fetch('https://script.google.com/macros/s/AKfycbzL31iwqTDoJdt-n17ACUcm75dl68Uy5YvHgoPtWZWsqVvEJMVfjcNY3ybA3rrbznbswg/exec', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-    }
-  </script>
+            const GET_options = {
+                method: "GET",
+            };
+
+            fetch(url, GET_options)
+            .then(response => response.json())
+            .then(data => {
+            const cellValue = data.cellValue;
+            if (inputValue == cellValue) {
+              showNextSection('inputNameSection');
+            } else {
+              document.getElementById("resultBox").innerText = "パスワードが間違っています。再度入力してください。";
+              document.getElementById("passwdBtn").disabled = false;
+            }
+            })
+            .catch((error) => {console.error('Error:', error);});
+        }
+        
+        
+    	function showNextSection(sectionId) {
+            const currentSection = document.querySelector('.input-section:not([style*="display: none"])');
+            if (currentSection) {
+                currentSection.style.display = 'none';
+            }
+            document.getElementById(sectionId).style.display = 'block';
+        }
+        
+        
+        function startQuiz(sectionId) {
+            let name = document.getElementById("inputNameBox").value;
+            if (name.trim() === "") {
+                alert("名前を入力してください。");
+                return;
+            } else if (name.length > 10) {
+                alert("名前は10文字以内で入力してください。");
+                return;
+            }
+            document.getElementById("welcomeMessage").innerText = `${name} さん、クイズを始めましょう！`;
+            showNextSection(sectionId);
+        }
+        
+        
+        function submitForm() {
+            const formData = new FormData(document.getElementById('testForm'));
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            const POST_options = {
+                method: "POST",
+                body: JSON.stringify(data),
+            };
+
+            fetch(url, POST_options)
+            .then(response => response.json())
+            .catch((error) => {console.error('Error:', error);});
+            }
+    </script>
 </body>
 </html>
