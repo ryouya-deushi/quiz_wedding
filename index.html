@@ -132,7 +132,6 @@
 		<div id="questionContainer1" class="input-section button013">
 			<h2 id="welcomeMessage"></h2>
 			<h2>クイズにご参加いただきありがとうございます！</h2>
-			<h2>楽しみながら挑戦していただければ幸いです</h2>
 			<h3><span class="marker">クイズは全部で10問</span></h3>
 			<h3><span class="marker">高得点の人には景品があるかも？</span></h3>
 			<div id="q1" class="radioColor box2-2">
@@ -233,7 +232,7 @@
 				alert("名前は10文字以内で入力してください。");
 				return;
 			}
-			document.getElementById("welcomeMessage").innerText = `${name}様、`;
+			document.getElementById("welcomeMessage").innerText = `${name}様`;
 			authenticate(sectionId);
 		}
 		
