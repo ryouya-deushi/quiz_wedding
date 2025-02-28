@@ -78,13 +78,14 @@
 			<h2 id="welcomeMessage"></h2>
 			<h2>クイズにご参加いただきありがとうございます！</h2>
 			<h2>楽しみながら挑戦していただければ幸いです</h2>
+			<h3>クイズは全部で10問</h3>
 			<h3>高得点の人には景品があるかも？</h3>
 	        <p>Q1: 好きな犬は？</p>
 	        
-		    <label><input type="radio" name="question1"> ぽめぽめ</label><br>
-		    <label><input type="radio" name="question1"> ぽにお</label><br>
-		    <label><input type="radio" name="question1"> ぷにこ</label><br>
-		    <label><input type="radio" name="question1"> ぴよ</label><br>
+		    <label><input type="radio" name="question1" value="ぽめぽめ"> ぽめぽめ</label><br>
+		    <label><input type="radio" name="question1" value="ぽにお"> ぽにお</label><br>
+		    <label><input type="radio" name="question1" value="ぷにこ"> ぷにこ</label><br>
+		    <label><input type="radio" name="question1" value="ぴよ"> ぴよ</label><br>
 
 	        <input type="button" id="preBtn1" value="<-back" onclick="showPreviousSection()">
 			<input type="button" id="nextBtn1" value="next->" onclick="showNextSection('questionContainer2', 'question1')">
@@ -94,10 +95,10 @@
 	    <div id="questionContainer2" class="input-section radioColor">
 	        <p>Q2: 好きな呪文は？</p>
 	        
-	        <label><input type="radio" name="question2">リベリオ</label>
-	        <label><input type="radio" name="question2">インセンディオ</label>
-	        <label><input type="radio" name="question2">アダバケダブラ</label>
-	        <label><input type="radio" name="question2">ルーモス</label>
+	        <label><input type="radio" name="question2" value="リベリオ">リベリオ</label>
+	        <label><input type="radio" name="question2" value="インセンディオ">インセンディオ</label>
+	        <label><input type="radio" name="question2" value="アダバケダブラ">アダバケダブラ</label>
+	        <label><input type="radio" name="question2" value="ルーモス">ルーモス</label>
 
 	        <input type="button" id="preBtn2" value="<-back" onclick="showPreviousSection()">
 			<input type="button" id="nextBtn2" value="next->" onclick="showNextSection('questionContainer3', 'question2')">
@@ -107,10 +108,10 @@
 	    <div id="questionContainer3" class="input-section radioColor">
 	        <p>Q3: 好きなポケモンは？</p>
 	        
-	        <label><input type="radio" name="question3">イーブイ</label>
-	        <label><input type="radio" name="question3">パモ</label>
-	        <label><input type="radio" name="question3">デデンネ</label>
-	        <label><input type="radio" name="question3">オーガポン</label>
+	        <label><input type="radio" name="question3" value="イーブイ">イーブイ</label>
+	        <label><input type="radio" name="question3" value="パモ">パモ</label>
+	        <label><input type="radio" name="question3" value="デデンネ">デデンネ</label>
+	        <label><input type="radio" name="question3" value="オーガポン">オーガポン</label>
 
 	        <input type="button" id="preBtn3" value="<-back" onclick="showPreviousSection()">
 			<input type="button" id="submitBtn" value="submit" onclick="submitForm('question3')">
