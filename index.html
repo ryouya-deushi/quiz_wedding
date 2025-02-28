@@ -12,6 +12,24 @@
 		.input-section {
 			display: none;
 		}
+		
+		.red-text {
+		  color: red;
+		}
+
+		.example4>label:hover{
+		    color: red;
+		}
+		
+		.input-section label {
+		    display: flex;
+		    align-items: center;
+		    margin-bottom: 10px;
+		}
+		
+		.input-section input[type="radio"] {
+		    margin-right: 10px;
+		}
 
 		h1 {
 			position: relative;
@@ -35,6 +53,7 @@
 			right: 0;
 		}
 
+
 	</style>
 </head>
 
@@ -55,61 +74,46 @@
 		</div>
 
 		<!-- 質問1-->
-		<div id="questionContainer1" class="input-section">
+		<div id="questionContainer1" class="input-section center example4">
 			<h2 id="welcomeMessage"></h2>
 			<h2>クイズにご参加いただきありがとうございます！</h2>
 			<h2>楽しみながら挑戦していただければ幸いです</h2>
 			<h3>高得点の人には景品があるかも？</h3>
-	        <p>Q1: 日本の首都は？</p>
-	        <input type="radio" id="q1_a" name="question1" value="大阪">
-	        <label for="q1_a">大阪</label><br>
+	        <p>Q1: 好きな犬は？</p>
+	        
 
-	        <input type="radio" id="q1_b" name="question1" value="東京">
-	        <label for="q1_b">東京</label><br>
+		    <label><input type="radio" name="question1"> ぽめ</label><br>
+		    <label><input type="radio" name="question1"> ぽaaaaに</label><br>
+		    <label><input type="radio" name="question1"> ぷsssssssssssssに</label><br>
+		    <label><input type="radio" name="question1"> ぴよ</label><br>
 
-	        <input type="radio" id="q1_c" name="question1" value="京都">
-	        <label for="q1_c">京都</label><br>
 
-			<input type="radio" id="q1_d" name="question1" value="北海道">
-	        <label for="q1_d">北海道</label><br><br>
 
 	        <input type="button" id="preBtn1" value="<-back" onclick="showPreviousSection()">
 			<input type="button" id="nextBtn1" value="next->" onclick="showNextSection('questionContainer2', 'question1')">
 	    </div>
 
 	    <!-- 質問2-->
-	    <div id="questionContainer2" class="input-section">
-	        <p>Q2: 世界で一番高い山は？</p>
-	        <input type="radio" id="q2_a" name="question2" value="エベレスト">
-	        <label for="q2_a">エベレスト</label><br>
-
-	        <input type="radio" id="q2_b" name="question2" value="富士山">
-	        <label for="q2_b">富士山</label><br>
-
-	        <input type="radio" id="q2_c" name="question2" value="モンブラン">
-	        <label for="q2_c">モンブラン</label><br>
-
-			<input type="radio" id="q2_d" name="question2" value="ぽにぽに">
-	        <label for="q2_d">ぽにぽに</label><br><br>
+	    <div id="questionContainer2" class="input-section alignment">
+	        <p>Q2: 好きな呪文は？</p>
+	        
+	        <label><input type="radio" name="question2">リベリオ</label>
+	        <label><input type="radio" name="question2">インセンディオ</label>
+	        <label><input type="radio" name="question2">アダバケダブラ</label>
+	        <label><input type="radio" name="question2">ルーモス</label>
 
 	        <input type="button" id="preBtn2" value="<-back" onclick="showPreviousSection()">
 			<input type="button" id="nextBtn2" value="next->" onclick="showNextSection('questionContainer3', 'question2')">
 	    </div>
 
 		<!-- 質問3-->
-	    <div id="questionContainer3" class="input-section">
-	        <p>Q3: みづきが好きなポケモンは？</p>
-	        <input type="radio" id="q3_a" name="question3" value="ピカチュウ">
-	        <label for="q3_a">ピカチュウ</label><br>
-
-	        <input type="radio" id="q3_b" name="question3" value="パモ">
-	        <label for="q3_b">パモ</label><br>
-
-	        <input type="radio" id="q3_c" name="question3" value="デデンネ">
-	        <label for="q3_c">デデンネ</label><br>
-
-			<input type="radio" id="q3_d" name="question3" value="リザードン">
-	        <label for="q3_d">リザードン</label><br><br>
+	    <div id="questionContainer3" class="input-section alignment">
+	        <p>Q3: 好きなポケモンは？</p>
+	        
+	        <label><input type="radio" name="question3">イーブイ</label>
+	        <label><input type="radio" name="question3">パモ</label>
+	        <label><input type="radio" name="question3">デデンネ</label>
+	        <label><input type="radio" name="question3">オーガポン</label>
 
 	        <input type="button" id="preBtn3" value="<-back" onclick="showPreviousSection()">
 			<input type="button" id="submitBtn" value="submit" onclick="submitForm('question3')">
@@ -120,7 +124,7 @@
 	<div id="exitSection" class="input-section">
 	<h2>ご回答ありがとうございました</h2><br>
 	<h2>Have a great time!!!</h2><br>
-	<h3>※二回目の回答はお控えください</h3>
+	<h3 class="red-text">※二回目の回答はお控えください</h3>
 	
 	</div>
 
