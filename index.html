@@ -30,6 +30,13 @@
 		.input-section input[type="radio"] {
 		    margin-right: 10px;
 		}
+		
+		.box2-2 {
+			padding:2em;/*内側余白*/
+			border-left:solid 5px #e9b3a3;/*線の種類・太さ・色*/
+			background-color:#F9F8F8;/*背景色*/
+			box-shadow:3px 1px 4px rgb(0 0 0 / .2);
+		}
 
 		h1 {
 			position: relative;
@@ -52,7 +59,55 @@
 		h1:after {
 			right: 0;
 		}
+		
+		span.marker {
+		    background: linear-gradient(transparent 50%, #e9b3a3 50%);
+		}
+		
+		.styled-button {
+            background-color: #e9b3a3; /* 緑色の背景 */
+            border: none; /* 枠線を消す */
+            color: white; /* 文字色を白に */
+            padding: 15px 32px; /* パディング */
+            text-align: center; /* テキストを中央に */
+            text-decoration: none; /* 下線を消す */
+            display: inline-block; /* インラインブロック要素に */
+            font-size: 16px; /* フォントサイズ */
+            margin: 4px 2px; /* マージン */
+            cursor: pointer; /* カーソルをポインターに */
+            border-radius: 12px; /* 角を丸く */
+            transition: background-color 0.3s ease; /* 背景色の変化にトランジションを追加 */
+        }
 
+        .styled-button:hover {
+            background-color: #d89a8a; /* ホバー時の背景色 */
+        }
+        
+        .styled-button-notback {
+            background-color: #4CAF50; /* 緑色の背景 */
+            border: none; /* 枠線を消す */
+            color: white; /* 文字色を白に */
+            padding: 15px 32px; /* パディング */
+            text-align: center; /* テキストを中央に */
+            text-decoration: none; /* 下線を消す */
+            display: inline-block; /* インラインブロック要素に */
+            font-size: 16px; /* フォントサイズ */
+            margin: 4px 2px; /* マージン */
+            cursor: pointer; /* カーソルをポインターに */
+            border-radius: 12px; /* 角を丸く */
+            transition: background-color 0.3s ease; /* 背景色の変化にトランジションを追加 */
+        }
+
+        .styled-button-notback:hover {
+            background-color: #45a049; /* ホバー時の背景色 */
+        }
+        
+        .styled-button-notback:disabled {
+            background-color: #a5d6a7; /* 無効化されたボタンの背景色 */
+            cursor: not-allowed; /* カーソルを禁止マークに */
+            opacity: 0.6; /* 透明度を下げる */
+        }
+        
 
 	</style>
 </head>
@@ -62,37 +117,39 @@
 	<div id="loginSection" class="input-section">
 		<p>パスワードを入力してください：</p>
 		<input type="text" id="passwdBox" placeholder="ここに入力してください"><br><br>
-		<input type="button" id="passwdBtn" value="認証" onclick="receiveForm()">
+		<input type="button" id="passwdBtn" value="Enter" onclick="receiveForm()" class="styled-button-notback">
 		<p id="resultBox"></p>
 	</div>
 
 	<form id="testForm">
-		<div id="inputNameSection" class="input-section">
+		<div id="inputNameSection" class="input-section button013">
 			<p>名前を入力してください：</p>
 			<input type="text" id="inputNameBox" name="inputNameBox" placeholder="ここに入力してください"><br><br>
-			<input type="button" id="inputNameBtn" value="next->" onclick="startQuiz('questionContainer1')">
+			<input type="button" id="inputNameBtn" value="Next>" onclick="startQuiz('questionContainer1')" class="styled-button">
 		</div>
 
 		<!-- 質問1-->
-		<div id="questionContainer1" class="input-section radioColor">
+		<div id="questionContainer1" class="input-section button013">
 			<h2 id="welcomeMessage"></h2>
 			<h2>クイズにご参加いただきありがとうございます！</h2>
 			<h2>楽しみながら挑戦していただければ幸いです</h2>
-			<h3>クイズは全部で10問</h3>
-			<h3>高得点の人には景品があるかも？</h3>
-	        <p>Q1: 好きな犬は？</p>
-	        
-		    <label><input type="radio" name="question1" value="ぽめぽめ"> ぽめぽめ</label><br>
-		    <label><input type="radio" name="question1" value="ぽにお"> ぽにお</label><br>
-		    <label><input type="radio" name="question1" value="ぷにこ"> ぷにこ</label><br>
-		    <label><input type="radio" name="question1" value="ぴよ"> ぴよ</label><br>
+			<h3><span class="marker">クイズは全部で10問</span></h3>
+			<h3><span class="marker">高得点の人には景品があるかも？</span></h3>
+			<div id="q1" class="radioColor box2-2">
+		        <p>Q1: 好きな犬は？</p>
+		        
+			    <label><input type="radio" name="question1" value="ぽめぽめ"> ぽめぽめ</label><br>
+			    <label><input type="radio" name="question1" value="ぽにお"> ぽにお</label><br>
+			    <label><input type="radio" name="question1" value="ぷにこ"> ぷにこ</label><br>
+			    <label><input type="radio" name="question1" value="ぴよ"> ぴよ</label><br>
 
-	        <input type="button" id="preBtn1" value="<-back" onclick="showPreviousSection()">
-			<input type="button" id="nextBtn1" value="next->" onclick="showNextSection('questionContainer2', 'question1')">
+				<input type="button" id="preBtn1" value="<Back" onclick="showPreviousSection()" class="styled-button">
+				<input type="button" id="nextBtn1" value="Next>" onclick="showNextSection('questionContainer2', 'question1')" class="styled-button">
+			</div>
 	    </div>
 
 	    <!-- 質問2-->
-	    <div id="questionContainer2" class="input-section radioColor">
+	    <div id="questionContainer2" class="input-section radioColor box2-2">
 	        <p>Q2: 好きな呪文は？</p>
 	        
 	        <label><input type="radio" name="question2" value="リベリオ">リベリオ</label>
@@ -100,12 +157,12 @@
 	        <label><input type="radio" name="question2" value="アダバケダブラ">アダバケダブラ</label>
 	        <label><input type="radio" name="question2" value="ルーモス">ルーモス</label>
 
-	        <input type="button" id="preBtn2" value="<-back" onclick="showPreviousSection()">
-			<input type="button" id="nextBtn2" value="next->" onclick="showNextSection('questionContainer3', 'question2')">
+	        <input type="button" id="preBtn2" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn2" value="Next>" onclick="showNextSection('questionContainer3', 'question2')" class="styled-button">
 	    </div>
 
 		<!-- 質問3-->
-	    <div id="questionContainer3" class="input-section radioColor">
+	    <div id="questionContainer3" class="input-section radioColor box2-2">
 	        <p>Q3: 好きなポケモンは？</p>
 	        
 	        <label><input type="radio" name="question3" value="イーブイ">イーブイ</label>
@@ -113,8 +170,8 @@
 	        <label><input type="radio" name="question3" value="デデンネ">デデンネ</label>
 	        <label><input type="radio" name="question3" value="オーガポン">オーガポン</label>
 
-	        <input type="button" id="preBtn3" value="<-back" onclick="showPreviousSection()">
-			<input type="button" id="submitBtn" value="submit" onclick="submitForm('question3')">
+	        <input type="button" id="preBtn3" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="submitBtn" value="Submit" onclick="submitForm('question3')" class="styled-button-notback">
 	    </div>
 
 	</form>
