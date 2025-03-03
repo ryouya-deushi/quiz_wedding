@@ -107,7 +107,6 @@
             cursor: not-allowed; /* カーソルを禁止マークに */
             opacity: 0.6; /* 透明度を下げる */
         }
-        
 
 	</style>
 </head>
@@ -178,7 +177,7 @@
 	<div id="exitSection" class="input-section">
 	<h2>ご回答ありがとうございました</h2><br>
 	<h2>Have a great time!!!</h2><br>
-	<h3 class="red-text">※二回目の回答はお控えください</h3>
+	<h3>※二回目の回答はお控えください</h3>
 	
 	</div>
 
@@ -261,14 +260,58 @@
 			.catch((error) => {console.error('Error:', error);});
 		}
 		
-		function submitForm() {
+		
+		const correctAnswers = {
+		    question1: "ぽめぽめ",
+		    question2: "ルーモス",
+		    question3: "オーガポン"
+		};
+		
+		function rainbowText(elementId) {
+		    const element = document.getElementById(elementId);
+		    const text = element.innerText;
+		    const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+		    element.innerHTML = "";
+
+		    for (let i = 0; i < text.length; i++) {
+		        const span = document.createElement("span");
+		        span.innerText = text[i];
+		        span.style.color = colors[i % colors.length];
+		        element.appendChild(span);
+		    }
+		}
+
+
+		function submitForm(questionName) {
+			const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+			if (!selectedOption) {
+				alert("選択してください");
+				return;
+			}
 			document.getElementById("submitBtn").disabled = true;
 			const formData = new FormData(document.getElementById('testForm'));
 			const data = {};
 			formData.forEach((value, key) => {
 				data[key] = value;
 			});
-
+			
+			let score = 0;
+			for (const key in correctAnswers) {
+			    if (data[key] === correctAnswers[key]) {
+			        score++;
+			    }
+			}
+			
+			if(score <= 2){
+				document.getElementById("exitSection").style.color = "blue";
+			} else if(score > 2 && score <= 5){
+				document.getElementById("exitSection").style.color = "green";
+			} else if(score > 5 && score <= 8){
+				document.getElementById("exitSection").style.color = "red";
+			} else {
+				rainbowText("exitSection");
+			}
+			
 			const POST_options = {
 				method: "POST",
 				body: JSON.stringify(data),
@@ -278,7 +321,7 @@
 			.then(response => response.json())
 			.then(response => {
 	            if (response.result === true) {
-	            	showNextSection('exitSection', 'question2');
+	            	showNextSection('exitSection', questionName);
 	            } else {
 	                alert("送信失敗。もう一度試してください。");
 	                document.getElementById("submitBtn").disabled = false;
