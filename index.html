@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Welcome to Our Wedding Party</title>
+	<title>Produced by Ryoya Deushi</title>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -280,9 +280,9 @@
 	</form>
 
 	<div id="exitSection" class="input-section">
-		<h2>ご回答ありがとうございました</h2><br>
-		<h2>Have a great time!!!</h2><br>
-		<h3>※二回目の回答はお控えください</h3>
+		<h2 id="thanks1">ご回答ありがとうございました</h2><br>
+		<h2 id="thanks2">Have a great time!!!</h2><br>
+		<h3 id="caution">※二回目の回答はお控えください</h3>
 		<input type="button" id="omake" value="おまけ" onclick="showExpectation()" class="styled-button">
 		
 		<div id="extraText" class="hidden-text">
@@ -388,17 +388,31 @@
 		};
 		
 		function rainbowText(elementId) {
-		    const element = document.getElementById(elementId);
-		    const text = element.innerText;
-		    const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
-		    element.innerHTML = "";
+			const element = document.getElementById(elementId);
+			const children = element.children; // すべての子要素を取得
 
-		    for (let i = 0; i < text.length; i++) {
-		        const span = document.createElement("span");
-		        span.innerText = text[i];
-		        span.style.color = colors[i % colors.length];
-		        element.appendChild(span);
-		    }
+			for (let i = 0; i < children.length; i++) {
+				const child = children[i];
+
+				// extraTextの変更を避ける
+				if (child.id === "extraText") {
+					continue;
+				}
+
+				// テキストを持つ要素に対してのみ実行（ボタンは無視）
+				if (child.tagName === "H2" || child.tagName === "H3") {
+					const text = child.innerText;
+					const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+					child.innerHTML = ""; // クリアして再構築
+
+					for (let j = 0; j < text.length; j++) {
+						const span = document.createElement("span");
+						span.innerText = text[j];
+						span.style.color = colors[j % colors.length];
+						child.appendChild(span);
+					}
+				}
+			}
 		}
 
 
