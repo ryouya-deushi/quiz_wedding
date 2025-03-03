@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Welcome to Our Wedding Party</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			margin: 20px;
+		}
+		.input-section {
+			display: none;
+		}
+		
+		.red-text {
+		  color: red;
+		}
+
+		.radioColor>label:hover{
+		    color: red;
+		}
+		
+		.input-section label {
+		    display: flex;
+		    align-items: center;
+		    margin-bottom: 10px;
+		}
+		
+		.input-section input[type="radio"] {
+		    margin-right: 10px;
+		}
+		
+		.box2-2 {
+			padding:2em;/*内側余白*/
+			border-left:solid 5px #e9b3a3;/*線の種類・太さ・色*/
+			background-color:#F9F8F8;/*背景色*/
+			box-shadow:3px 1px 4px rgb(0 0 0 / .2);
+		}
+
+		h1 {
+			position: relative;
+			display: inline-block;
+			padding: 0 55px;
+		}
+		h1:before, h1:after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			display: inline-block;
+			width: 45px;
+			height: 2px;
+			border-top: solid 1px black;
+			border-bottom: solid 1px black;
+		}
+		h1:before {
+			left:0;
+		}
+		h1:after {
+			right: 0;
+		}
+		
+		span.marker {
+		    background: linear-gradient(transparent 50%, #e9b3a3 50%);
+		}
+		
+		.styled-button {
+            background-color: #e9b3a3; /* 緑色の背景 */
+            border: none; /* 枠線を消す */
+            color: white; /* 文字色を白に */
+            padding: 15px 32px; /* パディング */
+            text-align: center; /* テキストを中央に */
+            text-decoration: none; /* 下線を消す */
+            display: inline-block; /* インラインブロック要素に */
+            font-size: 16px; /* フォントサイズ */
+            margin: 4px 2px; /* マージン */
+            cursor: pointer; /* カーソルをポインターに */
+            border-radius: 12px; /* 角を丸く */
+            transition: background-color 0.3s ease; /* 背景色の変化にトランジションを追加 */
+        }
+
+        .styled-button:hover {
+            background-color: #d89a8a; /* ホバー時の背景色 */
+        }
+        
+        .styled-button-notback {
+            background-color: #4CAF50; /* 緑色の背景 */
+            border: none; /* 枠線を消す */
+            color: white; /* 文字色を白に */
+            padding: 15px 32px; /* パディング */
+            text-align: center; /* テキストを中央に */
+            text-decoration: none; /* 下線を消す */
+            display: inline-block; /* インラインブロック要素に */
+            font-size: 16px; /* フォントサイズ */
+            margin: 4px 2px; /* マージン */
+            cursor: pointer; /* カーソルをポインターに */
+            border-radius: 12px; /* 角を丸く */
+            transition: background-color 0.3s ease; /* 背景色の変化にトランジションを追加 */
+        }
+
+        .styled-button-notback:hover {
+            background-color: #45a049; /* ホバー時の背景色 */
+        }
+        
+        .styled-button-notback:disabled {
+            background-color: #a5d6a7; /* 無効化されたボタンの背景色 */
+            cursor: not-allowed; /* カーソルを禁止マークに */
+            opacity: 0.6; /* 透明度を下げる */
+        }
+        .hidden-text {
+            display: none;
+            margin-top: 20px;
+            color: black;
+        }
+	</style>
+</head>
+
+<body>
+	<h1>Quiz</h1>
+	<div id="loginSection" class="input-section">
+		<p>パスワードを入力してください：</p>
+		<input type="text" id="passwdBox" placeholder="ここに入力してください"><br><br>
+		<input type="button" id="passwdBtn" value="Enter" onclick="receiveForm()" class="styled-button-notback">
+		<p id="resultBox"></p>
+	</div>
+
+	<form id="testForm">
+		<div id="inputNameSection" class="input-section">
+			<p>名前を入力してください：</p>
+			<input type="text" id="inputNameBox" name="inputNameBox" placeholder="ここに入力してください"><br><br>
+			<input type="button" id="inputNameBtn" value="Next>" onclick="startQuiz('questionContainer1')" class="styled-button">
+		</div>
+
+		<!-- 質問1-->
+		<div id="questionContainer1" class="input-section">
+			<h2 id="welcomeMessage"></h2>
+			<h2>クイズにご参加いただきありがとうございます！</h2>
+			<h3><span class="marker">クイズは全部で10問</span></h3>
+			<h3><span class="marker">高得点の人には景品があるかも？</span></h3>
+			<div id="q1" class="radioColor box2-2">
+				<p><span style="color: red;">新婦</span>に関する問題</p>
+		        <p>Q1: 中学から現在まで吹奏楽を続けていますが、演奏している楽器は何でしょう？</p>
+		        
+			    <label><input type="radio" name="question1" value="フルート"> フルート</label><br>
+			    <label><input type="radio" name="question1" value="クラリネット"> クラリネット</label><br>
+			    <label><input type="radio" name="question1" value="トランペット"> トランペット</label><br>
+			    <label><input type="radio" name="question1" value="アルト サックス"> アルト サックス</label><br>
+
+				<input type="button" id="preBtn1" value="<Back" onclick="showPreviousSection()" class="styled-button">
+				<input type="button" id="nextBtn1" value="Next>" onclick="showNextSection('questionContainer2', 'question1')" class="styled-button">
+			</div>
+	    </div>
+	    
+	    <!-- 質問2-->
+	    <div id="questionContainer2" class="input-section radioColor box2-2">
+	    	<p><span style="color: red;">新婦</span>に関する問題</p>
+	        <p>Q2: 行ったことの<span style="color: red;">ない</span>国は？</p>
+	        
+	        <label><input type="radio" name="question2" value="カナダ">カナダ</label>
+	        <label><input type="radio" name="question2" value="シンガポール">シンガポール</label>
+	        <label><input type="radio" name="question2" value="フィンランド">フィンランド</label>
+	        <label><input type="radio" name="question2" value="イギリス">イギリス</label>
+
+	        <input type="button" id="preBtn2" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn2" value="Next>" onclick="showNextSection('questionContainer3', 'question2')" class="styled-button">
+	    </div>
+	    
+		<!-- 質問3-->
+	    <div id="questionContainer3" class="input-section radioColor box2-2">
+	    	<p><span style="color: red;">新婦</span>に関する問題</p>
+	        <p>Q3: ポケモンGOの相棒は？</p>
+	        
+	        <label><input type="radio" name="question3" value="ルカリオ">ルカリオ</label>
+	        <label><input type="radio" name="question3" value="ガブリアス">ガブリアス</label>
+	        <label><input type="radio" name="question3" value="レントラー">レントラー</label>
+	        <label><input type="radio" name="question3" value="ラティオス">ラティオス</label>
+
+	        <input type="button" id="preBtn3" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn3" value="Next>" onclick="showNextSection('questionContainer4', 'question3')" class="styled-button">
+	    </div>
+	    
+	    <!-- 質問4-->
+	    <div id="questionContainer4" class="input-section radioColor box2-2">
+	    	<p><span style="color: blue;">新郎</span>に関する問題</p>
+	        <p>Q4: 小学校から現在まで続けているスポーツは？</p>
+	        
+	        <label><input type="radio" name="question4" value="サッカー">サッカー</label>
+	        <label><input type="radio" name="question4" value="バドミントン">バドミントン</label>
+	        <label><input type="radio" name="question4" value="バスケ">バスケ</label>
+	        <label><input type="radio" name="question4" value="テニス">テニス</label>
+
+	        <input type="button" id="preBtn4" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn4" value="Next>" onclick="showNextSection('questionContainer5', 'question4')" class="styled-button">
+	    </div>
+	    
+	    <!-- 質問5-->
+	    <div id="questionContainer5" class="input-section radioColor box2-2">
+	    	<p><span style="color: blue;">新郎</span>に関する問題</p>
+	        <p>Q5: 経験したことの<span style="color: red;">ない</span>バイトは？</p>
+	        
+	        <label><input type="radio" name="question5" value="バル">バル</label>
+	        <label><input type="radio" name="question5" value="カフェ">カフェ</label>
+	        <label><input type="radio" name="question5" value="コンビニ">コンビニ</label>
+	        <label><input type="radio" name="question5" value="コールセンター">コールセンター</label>
+
+	        <input type="button" id="preBtn5" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn5" value="Next>" onclick="showNextSection('questionContainer6', 'question5')" class="styled-button">
+	    </div>
+	    
+	    <!-- 質問6-->
+	    <div id="questionContainer6" class="input-section radioColor box2-2">
+	    	<p><span style="color: blue;">新郎</span>に関する問題</p>
+	        <p>Q6: ゲームが趣味ですが、特にフォートナイトの総プレイ時間は？</p>
+	        
+	        <label><input type="radio" name="question6" value="200時間未満">200時間未満</label>
+	        <label><input type="radio" name="question6" value="500時間">500時間</label>
+	        <label><input type="radio" name="question6" value="800時間">800時間</label>
+	        <label><input type="radio" name="question6" value="1000時間以上">1000時間以上</label>
+
+	        <input type="button" id="preBtn6" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn6" value="Next>" onclick="showNextSection('questionContainer7', 'question6')" class="styled-button">
+	    </div>
+	    
+	    <!-- 質問7-->
+	    <div id="questionContainer7" class="input-section radioColor box2-2">
+	    	<p><span style="color: green;">新郎新婦</span>に関する問題</p>
+	        <p>Q7: 大学院時代、研究で用いていた植物は？</p>
+	        
+	        <label><input type="radio" name="question7" value="ムギ">ムギ</label>
+	        <label><input type="radio" name="question7" value="イネ">イネ</label>
+	        <label><input type="radio" name="question7" value="トウモロコシ">トウモロコシ</label>
+	        <label><input type="radio" name="question7" value="シロイヌナズナ">シロイヌナズナ</label>
+
+	        <input type="button" id="preBtn7" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn7" value="Next>" onclick="showNextSection('questionContainer8', 'question7')" class="styled-button">
+	    </div>
+	    
+	    <!-- 質問8-->
+	    <div id="questionContainer8" class="input-section radioColor box2-2">
+	    	<p><span style="color: green;">新郎新婦</span>に関する問題</p>
+	        <p>Q8: 将来飼いたいと思っているペットは？</p>
+	        
+	        <label><input type="radio" name="question8" value="犬">犬</label>
+	        <label><input type="radio" name="question8" value="ネコ">ネコ</label>
+	        <label><input type="radio" name="question8" value="フェレット">フェレット</label>
+	        <label><input type="radio" name="question8" value="ウサギ">ウサギ</label>
+
+	        <input type="button" id="preBtn8" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn8" value="Next>" onclick="showNextSection('questionContainer9', 'question8')" class="styled-button">
+	    </div>
+	    
+	    <!-- 質問9-->
+	    <div id="questionContainer9" class="input-section radioColor box2-2">
+	    	<p><span style="color: green;">新郎新婦</span>に関する問題</p>
+	        <p>Q9: 共通の趣味は？</p>
+	        
+	        <label><input type="radio" name="question9" value="ドライブ">ドライブ</label>
+	        <label><input type="radio" name="question9" value="コンサート参戦">コンサート参戦</label>
+	        <label><input type="radio" name="question9" value="アニメ鑑賞">アニメ鑑賞</label>
+	        <label><input type="radio" name="question9" value="サウナ">サウナ</label>
+
+	        <input type="button" id="preBtn9" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="nextBtn9" value="Next>" onclick="showNextSection('questionContainer10', 'question9')" class="styled-button">
+	    </div>
+	    
+	    
+	    <!-- 質問10-->
+	    <div id="questionContainer10" class="input-section radioColor box2-2">
+	    	<p><span style="color: green;">新郎新婦</span>に関する問題</p>
+	        <p>Q10: この後登場する新婦のドレスの色は？</p>
+	        
+	        <label><input type="radio" name="question10" value="ブルー">ブルー</label>
+	        <label><input type="radio" name="question10" value="グリーン">グリーン</label>
+	        <label><input type="radio" name="question10" value="オレンジ">オレンジ</label>
+	        <label><input type="radio" name="question10" value="ピンク">ピンク</label>
+
+	        <input type="button" id="preBtn10" value="<Back" onclick="showPreviousSection()" class="styled-button">
+			<input type="button" id="submitBtn" value="Submit" onclick="submitForm('question10')" class="styled-button-notback">
+	    </div>
+	</form>
+
+	<div id="exitSection" class="input-section">
+		<h2>ご回答ありがとうございました</h2><br>
+		<h2>Have a great time!!!</h2><br>
+		<h3>※二回目の回答はお控えください</h3>
+		<input type="button" id="omake" value="おまけ" onclick="showExpectation()" class="styled-button">
+		
+		<div id="extraText" class="hidden-text">
+		    <p>期待度：青 < 緑 < 赤 < 虹</p>
+		</div>
+	</div>
+	
+	<script>
+		document.getElementById('loginSection').style.display = 'block';
+		
+		function authenticate(sectionId) {
+			const currentSection = document.querySelector('.input-section:not([style*="display: none"])');
+			if (currentSection) {
+				sectionHistory.push(currentSection.id);
+				currentSection.style.display = 'none';
+			}
+			document.getElementById(sectionId).style.display = 'block';
+		}
+		
+		function showExpectation() {
+            document.getElementById("extraText").style.display = "block";
+        }
+
+		const sectionHistory = [];
+		function showNextSection(sectionId, questionName) {
+			const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+			if (!selectedOption) {
+				alert("選択してください");
+				return;
+			}
+
+			const currentSection = document.querySelector('.input-section:not([style*="display: none"])');
+			if (currentSection) {
+				sectionHistory.push(currentSection.id);
+				currentSection.style.display = 'none';
+			}
+			document.getElementById(sectionId).style.display = 'block';
+		}
+
+		function showPreviousSection() {
+			if (sectionHistory.length > 0) {
+				const previousSectionId = sectionHistory.pop();
+				const currentSection = document.querySelector('.input-section:not([style*="display: none"])');
+				if (currentSection) {
+					currentSection.style.display = 'none';
+				}
+				
+				document.getElementById(previousSectionId).style.display = 'block';
+			}
+		}
+		
+		
+		function startQuiz(sectionId) {
+			let name = document.getElementById("inputNameBox").value;
+			if (name.trim() === "") {
+				alert("名前を入力してください。");
+				return;
+			} else if (name.length > 10) {
+				alert("名前は10文字以内で入力してください。");
+				return;
+			}
+			document.getElementById("welcomeMessage").innerText = `${name}様`;
+			authenticate(sectionId);
+		}
+		
+		
+		const url = "https://script.google.com/macros/s/AKfycbzL31iwqTDoJdt-n17ACUcm75dl68Uy5YvHgoPtWZWsqVvEJMVfjcNY3ybA3rrbznbswg/exec";
+		function receiveForm() {
+			document.getElementById("passwdBtn").disabled = true;
+
+			const inputValue = document.getElementById('passwdBox').value;
+
+			const GET_options = {
+				method: "GET",
+			};
+
+			fetch(url, GET_options)
+			.then(response => response.json())
+			.then(data => {
+			const cellValue = data.cellValue;
+			if (inputValue == cellValue) {
+				authenticate('inputNameSection');
+			} else {
+			  document.getElementById("resultBox").innerText = "パスワードが間違っています。再度入力してください。";
+			  document.getElementById("passwdBtn").disabled = false;
+			}
+			})
+			.catch((error) => {console.error('Error:', error);});
+		}
+		
+		
+		const correctAnswers = {
+		    question1: "アルト サックス",
+		    question2: "シンガポール",
+		    question3: "ラティオス",
+		    question4: "バスケ",
+		    question5: "バル",
+		    question6: "800時間",
+		    question7: "イネ",
+		    question8: "犬",
+		    question9: "コンサート参戦",
+		    question10: "ピンク",
+		};
+		
+		function rainbowText(elementId) {
+		    const element = document.getElementById(elementId);
+		    const text = element.innerText;
+		    const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+		    element.innerHTML = "";
+
+		    for (let i = 0; i < text.length; i++) {
+		        const span = document.createElement("span");
+		        span.innerText = text[i];
+		        span.style.color = colors[i % colors.length];
+		        element.appendChild(span);
+		    }
+		}
+
+
+		function submitForm(questionName) {
+			const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+			if (!selectedOption) {
+				alert("選択してください");
+				return;
+			}
+			document.getElementById("submitBtn").disabled = true;
+			const formData = new FormData(document.getElementById('testForm'));
+			const data = {};
+			formData.forEach((value, key) => {
+				data[key] = value;
+			});
+			
+			let score = 0;
+			for (const key in correctAnswers) {
+			    if (data[key] === correctAnswers[key]) {
+			        score++;
+			    }
+			}
+			
+			if(score <= 3){
+				document.getElementById("exitSection").style.color = "blue";
+			} else if(score > 3 && score <= 6){
+				document.getElementById("exitSection").style.color = "green";
+			} else if(score > 6 && score <= 9){
+				document.getElementById("exitSection").style.color = "red";
+			} else {
+				rainbowText("exitSection");
+			}
+			
+			const POST_options = {
+				method: "POST",
+				body: JSON.stringify(data),
+			};
+
+			fetch(url, POST_options)
+			.then(response => response.json())
+			.then(response => {
+	            if (response.result === true) {
+	            	showNextSection('exitSection', questionName);
+	            } else {
+	                alert("送信失敗。もう一度試してください。");
+	                document.getElementById("submitBtn").disabled = false;
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error:', error);
+	            alert("エラーが発生しました。もう一度試してください。");
+	            document.getElementById("submitBtn").disabled = false;
+	        });
+	    }
+
+	</script>
+</body>
+</html>
