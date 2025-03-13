@@ -352,9 +352,8 @@
 		const url = "https://script.google.com/macros/s/AKfycbzL31iwqTDoJdt-n17ACUcm75dl68Uy5YvHgoPtWZWsqVvEJMVfjcNY3ybA3rrbznbswg/exec";
 		function receiveForm() {
 			document.getElementById("passwdBtn").disabled = true;
-
+			document.getElementById("passwdBox").disabled = true;
 			const inputValue = document.getElementById('passwdBox').value;
-
 			const GET_options = {
 				method: "GET",
 			};
@@ -368,6 +367,7 @@
 			} else {
 			  document.getElementById("resultBox").innerText = "パスワードが間違っています。再度入力してください。";
 			  document.getElementById("passwdBtn").disabled = false;
+			  document.getElementById("passwdBox").disabled = false;
 			}
 			})
 			.catch((error) => {console.error('Error:', error);});
