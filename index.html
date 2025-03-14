@@ -291,6 +291,13 @@
 	</div>
 	
 	<script>
+		window.onload = function() {
+			if (localStorage.getItem("quizAnswered")) {
+				document.getElementById("passwdBtn").disabled = true;
+				document.getElementById("resultBox").innerText = "すでに回答済みです";
+			}
+		};
+		
 		document.getElementById('loginSection').style.display = 'block';
 		
 		function authenticate(sectionId) {
@@ -456,6 +463,7 @@
 			.then(response => {
 	            if (response.result === true) {
 	            	showNextSection('exitSection', questionName);
+			localStorage.setItem("quizAnswered", "true");
 	            } else {
 	                alert("送信失敗。もう一度試してください。");
 	                document.getElementById("submitBtn").disabled = false;
