@@ -373,7 +373,7 @@
 		function receiveForm() {
 			document.getElementById("passwdBtn").disabled = true;
 			document.getElementById("passwdBox").disabled = true;
-			const inputValue = document.getElementById('passwdBox').value;
+			const inputValue = document.getElementById('passwdBox').value.toLowerCase();
 			const GET_options = {
 				method: "GET",
 			};
