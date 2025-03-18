@@ -127,7 +127,7 @@
 	<form id="testForm">
 		<div id="inputNameSection" class="input-section">
 			<p>名前を入力してください：</p>
-			<input type="text" id="inputNameBox" name="inputNameBox" placeholder="ここに入力してください"><br><br>
+			<input type="text" id="YourName" name="YourName" placeholder="ここに入力してください"><br><br>
 			<input type="button" id="inputNameBtn" value="Next>" onclick="startQuiz('questionContainer1')" class="styled-button">
 		</div>
 
@@ -295,6 +295,19 @@
 			if (localStorage.getItem("quizAnswered")) {
 				document.getElementById("passwdBtn").disabled = true;
 				document.getElementById("resultBox").innerText = "すでに回答済みです";
+				let savedData = localStorage.getItem("quizData");
+				let data = JSON.parse(savedData);
+
+				// 回答済みメッセージ
+				let output = "すでに回答済みです<br><br>";
+
+				// dataの内容を1から番号付きで表示
+				for (const key in data) {
+					if (data.hasOwnProperty(key)) {
+						output += `${key}: ${data[key]}<br>`;
+					}
+				}
+				document.getElementById("resultBox").innerHTML = output;
 			}
 		};
 		
@@ -343,7 +356,7 @@
 		
 		
 		function startQuiz(sectionId) {
-			let name = document.getElementById("inputNameBox").value;
+			let name = document.getElementById("YourName").value;
 			if (name.trim() === "") {
 				alert("名前を入力してください。");
 				return;
@@ -463,7 +476,8 @@
 			.then(response => {
 	            if (response.result === true) {
 	            	showNextSection('exitSection', questionName);
-			localStorage.setItem("quizAnswered", "true");
+					localStorage.setItem("quizAnswered", "true");
+					localStorage.setItem("quizData", JSON.stringify(data));
 	            } else {
 	                alert("送信失敗。もう一度試してください。");
 	                document.getElementById("submitBtn").disabled = false;
