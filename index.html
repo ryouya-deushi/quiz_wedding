@@ -185,14 +185,11 @@
 		window.onload = function() {
 			if (localStorage.getItem("quizAnswered")) {
 				document.getElementById("passwdBtn").disabled = true;
+				document.getElementById("passwdBox").disabled = true;
 				document.getElementById("resultBox").innerText = "すでに回答済みです";
 				let savedData = localStorage.getItem("quizData");
 				let data = JSON.parse(savedData);
-
-				// 回答済みメッセージ
-				let output = "すでに回答済みです<br><br>";
-
-				// dataの内容を1から番号付きで表示
+				let output = "";
 				for (const key in data) {
 					if (data.hasOwnProperty(key)) {
 						output += `${key}: ${data[key]}<br>`;
