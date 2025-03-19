@@ -9,7 +9,7 @@
 <body>
 	<h1>Quiz</h1>
 	<div id="loginSection" class="input-section">
-		<p>パスワードを入力してください：</p>
+		<p id="passwordPrompt">パスワードを入力してください：</p>
 		<input type="text" id="passwdBox" placeholder="ここに入力してください"><br><br>
 		<input type="button" id="passwdBtn" value="Enter" onclick="receiveForm()" class="styled-button-notback">
 		<p id="resultBox"></p>
@@ -184,18 +184,36 @@
 	<script>
 		window.onload = function() {
 			if (localStorage.getItem("quizAnswered")) {
-				document.getElementById("passwdBtn").disabled = true;
-				document.getElementById("passwdBox").disabled = true;
-				document.getElementById("resultBox").innerText = "すでに回答済みです";
+				document.getElementById("passwordPrompt").innerText = "ご回答ありがとうございました！";
+				const txtbox = document.getElementById("passwdBox");
+				txtbox.disabled = true;
+				txtbox.placeholder = "期待度：青 < 緑 < 赤 < 虹";
+				
 				let savedData = localStorage.getItem("quizData");
 				let data = JSON.parse(savedData);
-				let output = "";
+				let output = "<br><br>";
 				for (const key in data) {
 					if (data.hasOwnProperty(key)) {
 						output += `${key}: ${data[key]}<br>`;
 					}
 				}
 				document.getElementById("resultBox").innerHTML = output;
+				
+				const btn = document.getElementById("passwdBtn");
+        		btn.value = "Click!";
+        		let score = localStorage.getItem("quizScore");
+        		btn.onclick = function() {
+		            if(score <= 2){
+						resultBox.style.color = "blue";
+					} else if(score > 2 && score <= 5){
+						resultBox.style.color = "green";
+					} else if(score > 5 && score <= 8){
+						resultBox.style.color = "red";
+					} else {
+						rainbowTextWithBr("resultBox");
+					}
+					btn.disabled = true;
+	            };
 			}
 		};
 		
@@ -322,6 +340,40 @@
 				}
 			}
 		}
+		
+		function rainbowTextWithBr(elementId) {
+		    const element = document.getElementById(elementId);
+		    const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+
+		    // innerHTMLを取得（<br>などのタグも含む）
+		    const html = element.innerHTML;
+
+		    let rainbowHTML = "";
+		    let colorIndex = 0;
+
+		    // HTMLを1文字ずつ処理
+		    for (let i = 0; i < html.length; i++) {
+		        const char = html[i];
+
+		        // <br>タグなどのタグ部分はそのまま通す
+		        if (char === "<") {
+		            const tagEnd = html.indexOf(">", i);
+		            rainbowHTML += html.slice(i, tagEnd + 1);
+		            i = tagEnd; // インデックスをタグの末尾に飛ばす
+		        } else if (char.trim() === "") {
+		            // 空白や改行はそのまま
+		            rainbowHTML += char;
+		        } else {
+		            // それ以外の文字に色をつける
+		            const color = colors[colorIndex % colors.length];
+		            rainbowHTML += `<span style="color: ${color}">${char}</span>`;
+		            colorIndex++;
+		        }
+		    }
+
+		    // 変換後のHTMLをセット
+		    element.innerHTML = rainbowHTML;
+		}
 
 
 		function submitForm(questionName) {
@@ -366,6 +418,7 @@
 	            	showNextSection('exitSection', questionName);
 					localStorage.setItem("quizAnswered", "true");
 					localStorage.setItem("quizData", JSON.stringify(data));
+					localStorage.setItem("quizScore", JSON.stringify(score));
 	            } else {
 	                alert("送信失敗。もう一度試してください。");
 	                document.getElementById("submitBtn").disabled = false;
