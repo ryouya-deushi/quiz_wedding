@@ -203,11 +203,11 @@
         		btn.value = "Click!";
         		let score = localStorage.getItem("quizScore");
         		btn.onclick = function() {
-		            if(score <= 2){
+		            if(score <= 3){
 						resultBox.style.color = "blue";
-					} else if(score > 2 && score <= 5){
+					} else if(score > 3 && score <= 6){
 						resultBox.style.color = "green";
-					} else if(score > 5 && score <= 8){
+					} else if(score > 6 && score <= 9){
 						resultBox.style.color = "red";
 					} else {
 						rainbowTextWithBr("resultBox");
@@ -396,11 +396,11 @@
 			    }
 			}
 			
-			if(score <= 2){
+			if(score <= 3){
 				document.getElementById("exitSection").style.color = "blue";
-			} else if(score > 2 && score <= 5){
+			} else if(score > 3 && score <= 6){
 				document.getElementById("exitSection").style.color = "green";
-			} else if(score > 5 && score <= 8){
+			} else if(score > 6 && score <= 9){
 				document.getElementById("exitSection").style.color = "red";
 			} else {
 				rainbowText("exitSection");
