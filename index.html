@@ -311,7 +311,7 @@
 			})
 			.catch((error) => {
 				console.error('Error:', error);
-				document.getElementById("resultBox").innerText = "エラーが発生しました。再試行してください。";
+				alert("エラーが発生しました。再度お試しください。");
 				document.getElementById("passwdBtn").disabled = false;
 				document.getElementById("passwdBox").disabled = false;
 			});
@@ -430,14 +430,14 @@
 					localStorage.setItem("quizData", JSON.stringify(data));
 					localStorage.setItem("quizScore", JSON.stringify(score));
 	            } else {
-	                alert("送信失敗。もう一度試してください。");
+					document.getElementById("ptext").innerText = "送信失敗。再度お試しください。";
 	                document.getElementById("submitBtn").disabled = false;
 					document.getElementById("preBtn10").disabled = false;
 	            }
 	        })
 	        .catch(error => {
 	            console.error('Error:', error);
-	            alert("エラーが発生しました。もう一度試してください。");
+	            alert("エラーが発生しました。再度お試しください。");
 	            document.getElementById("submitBtn").disabled = false;
 				document.getElementById("preBtn10").disabled = false;
 	        });
