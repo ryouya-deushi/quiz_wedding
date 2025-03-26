@@ -167,6 +167,7 @@
 
 	        <input type="button" id="preBtn10" value="<Back" onclick="showPreviousSection()" class="styled-button">
 			<input type="button" id="submitBtn" value="Submit" onclick="submitForm('Q10')" class="styled-button-notback">
+			<p id="ptext"></p>
 	    </div>
 	</form>
 
@@ -178,7 +179,7 @@
 		
 		<div id="extraText" class="hidden-text">
 		    <p>期待度：青 < 緑 < 赤 < 虹</p><br>
-			<p>画面を閉じて再度開くと回答した内容が見直せます</p>
+			<p>リロードすると回答した内容が見直せます</p>
 		</div>
 	</div>
 	
@@ -400,6 +401,8 @@
 				return;
 			}
 			document.getElementById("submitBtn").disabled = true;
+			document.getElementById("preBtn10").disabled = true;
+			document.getElementById("ptext").innerText = "送信中。少々お待ちください。";
 			const formData = new FormData(document.getElementById('testForm'));
 			const data = {};
 			formData.forEach((value, key) => {
@@ -429,12 +432,14 @@
 	            } else {
 	                alert("送信失敗。もう一度試してください。");
 	                document.getElementById("submitBtn").disabled = false;
+					document.getElementById("preBtn10").disabled = false;
 	            }
 	        })
 	        .catch(error => {
 	            console.error('Error:', error);
 	            alert("エラーが発生しました。もう一度試してください。");
 	            document.getElementById("submitBtn").disabled = false;
+				document.getElementById("preBtn10").disabled = false;
 	        });
 	    }
 
