@@ -157,7 +157,7 @@
 	    
 	    <!-- 質問10-->
 	    <div id="questionContainer10" class="input-section radioColor box2-2">
-	    	<p><span style="color: green;">新郎新婦</span>に関する問題</p>
+	    	<p><span style="color: red;">新婦</span>に関する問題</p>
 	        <p>Q10: この後登場する新婦のドレスの色は？</p>
 	        
 	        <label><input type="radio" name="Q10" value="ブルー">ブルー</label>
@@ -174,10 +174,11 @@
 		<h2 id="thanks1">ご回答ありがとうございました</h2><br>
 		<h2 id="thanks2">Have a great time!!!</h2><br>
 		<h3 id="caution">※二回目の回答はお控えください</h3>
-		<input type="button" id="omake" value="おまけ" onclick="showExpectation()" class="styled-button">
+		<input type="button" id="omake" value="Click" onclick="showExpectation()" class="styled-button">
 		
 		<div id="extraText" class="hidden-text">
-		    <p>期待度：青 < 緑 < 赤 < 虹</p>
+		    <p>期待度：青 < 緑 < 赤 < 虹</p><br>
+			<p>画面を閉じて再度開くと回答した内容が見直せます</p>
 		</div>
 	</div>
 	
@@ -229,7 +230,17 @@
 		}
 		
 		function showExpectation() {
-            document.getElementById("extraText").style.display = "block";
+			document.getElementById("extraText").style.display = "block";
+			let score = localStorage.getItem("quizScore");
+			if(score <= 3){
+				document.getElementById("exitSection").style.color = "blue";
+			} else if(score > 3 && score <= 6){
+				document.getElementById("exitSection").style.color = "green";
+			} else if(score > 6 && score <= 9){
+				document.getElementById("exitSection").style.color = "red";
+			} else {
+				rainbowText("exitSection");
+			}
         }
 
 		const sectionHistory = [];
@@ -279,6 +290,7 @@
 		function receiveForm() {
 			document.getElementById("passwdBtn").disabled = true;
 			document.getElementById("passwdBox").disabled = true;
+			document.getElementById("resultBox").innerText = "認証中。少々お待ちください。";
 			const inputValue = document.getElementById('passwdBox').value.toLowerCase();
 			const GET_options = {
 				method: "GET",
@@ -288,7 +300,7 @@
 			.then(response => response.json())
 			.then(data => {
 			const cellValue = data.cellValue;
-			if (inputValue == cellValue) {
+			if (inputValue === cellValue) {
 				authenticate('inputNameSection');
 			} else {
 			  document.getElementById("resultBox").innerText = "パスワードが間違っています。再度入力してください。";
@@ -296,7 +308,12 @@
 			  document.getElementById("passwdBox").disabled = false;
 			}
 			})
-			.catch((error) => {console.error('Error:', error);});
+			.catch((error) => {
+				console.error('Error:', error);
+				document.getElementById("resultBox").innerText = "エラーが発生しました。再試行してください。";
+				document.getElementById("passwdBtn").disabled = false;
+				document.getElementById("passwdBox").disabled = false;
+			});
 		}
 		
 		
@@ -394,16 +411,6 @@
 			    if (data[key] === correctAnswers[key]) {
 			        score++;
 			    }
-			}
-			
-			if(score <= 3){
-				document.getElementById("exitSection").style.color = "blue";
-			} else if(score > 3 && score <= 6){
-				document.getElementById("exitSection").style.color = "green";
-			} else if(score > 6 && score <= 9){
-				document.getElementById("exitSection").style.color = "red";
-			} else {
-				rainbowText("exitSection");
 			}
 			
 			const POST_options = {
