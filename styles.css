@@ -106,3 +106,18 @@ span.marker {
     margin-top: 20px;
     color: black;
 }
+
+.transparent-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('background.jpg'); /* 背景画像 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5; /* 背景だけ透明に */
+    z-index: -1; /* 背景を後ろに配置 */
+}
