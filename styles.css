@@ -118,6 +118,6 @@ span.marker {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.5; /* 背景だけ透明に */
+    opacity: 0.2; /* 背景だけ透明に */
     z-index: -1; /* 背景を後ろに配置 */
 }
