@@ -2,7 +2,7 @@ window.onload = function() {
 			if (localStorage.getItem("quizAnswered")) {
 				document.body.classList.add("transparent-background");
 				document.getElementById("passwordPrompt").innerText = "ご回答ありがとうございました！";
-				document.getElementById("passwordPrompt").style.fontSize = "24px";
+				document.getElementById("passwordPrompt").style.fontSize = "32px";
 				const txtbox = document.getElementById("passwdBox");
 				txtbox.disabled = true;
 				txtbox.placeholder = "期待度：青 < 緑 < 赤 < 虹";
