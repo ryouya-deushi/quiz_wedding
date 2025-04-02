@@ -18,20 +18,30 @@ window.onload = function() {
 				document.getElementById("resultBox").style.textAlign = "left";
 				
 				const btn = document.getElementById("passwdBtn");
-        		btn.value = "Click!";
-        		let score = localStorage.getItem("quizScore");
-        		btn.onclick = function() {
-		            if(score <= 3){
-						resultBox.style.color = "blue";
-					} else if(score > 3 && score <= 6){
-						resultBox.style.color = "green";
-					} else if(score > 6 && score <= 9){
-						resultBox.style.color = "red";
-					} else {
-						rainbowTextWithBr("resultBox");
-					}
-					btn.disabled = true;
-	            };
+	        		btn.value = "Click!";
+				let isClicked = false;
+	        		let score = localStorage.getItem("quizScore");
+	        		let originalText = resultBox.innerHTML; // 初期状態を保存
+	        		btn.onclick = function() {
+				if(isClicked){
+					resultBox.style.color = "black";
+					resultBox.innerHTML = originalText;  // 元のテキストを復元
+					btn.value = "Click!";
+				} else {
+					originalText = resultBox.innerHTML; // 変更前のテキストを保存（毎回必ず）
+					if(score <= 3){
+							resultBox.style.color = "blue";
+						} else if(score > 3 && score <= 6){
+							resultBox.style.color = "green";
+						} else if(score > 6 && score <= 9){
+							resultBox.style.color = "red";
+						} else {
+							rainbowTextWithBr("resultBox");
+						}
+						btn.value = "Return!";
+				}
+				isClicked = !isClicked;
+		            };
 			}
 		};
 		
