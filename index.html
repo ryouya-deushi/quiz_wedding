@@ -186,6 +186,7 @@
 	<script>
 		window.onload = function() {
 			if (localStorage.getItem("quizAnswered")) {
+				document.body.classList.add("transparent-background");
 				document.getElementById("passwordPrompt").innerText = "ご回答ありがとうございました！";
 				const txtbox = document.getElementById("passwdBox");
 				txtbox.disabled = true;
