@@ -332,6 +332,16 @@
 		    Q9: "コンサート参戦",
 		    Q10: "グリーン",
 		};
+
+		const colors = [
+			"red",
+			"orange",
+			"gold",
+			"green",
+			"blue",
+			"indigo",
+			"violet"
+		];
 		
 		function rainbowText(elementId) {
 			const element = document.getElementById(elementId);
@@ -348,7 +358,6 @@
 				// テキストを持つ要素に対してのみ実行（ボタンは無視）
 				if (child.tagName === "H2" || child.tagName === "H3") {
 					const text = child.innerText;
-					const colors = ["red", "orange", "gold", "green", "blue", "indigo", "violet"];
 					child.innerHTML = ""; // クリアして再構築
 
 					for (let j = 0; j < text.length; j++) {
@@ -363,14 +372,10 @@
 		
 		function rainbowTextWithBr(elementId) {
 		    const element = document.getElementById(elementId);
-		    const colors = ["red", "orange", "gold", "green", "blue", "indigo", "violet"];
-
 		    // innerHTMLを取得（<br>などのタグも含む）
 		    const html = element.innerHTML;
-
 		    let rainbowHTML = "";
 		    let colorIndex = 0;
-
 		    // HTMLを1文字ずつ処理
 		    for (let i = 0; i < html.length; i++) {
 		        const char = html[i];
