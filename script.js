@@ -49,7 +49,7 @@ window.onload = function() {
 		};
 
 		function clickImage() {
-	        	alert("Thanks for finding it. In return, I'll make it rainbow-colored for you.");
+	        	alert("見つけてくれてありがとう！お礼に虹色にしてあげる。");
 	        	lastscore = 10;
 	        }
 		
