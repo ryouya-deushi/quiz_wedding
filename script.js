@@ -1,5 +1,8 @@
+let lastscore;
 window.onload = function() {
 			if (localStorage.getItem("quizAnswered")) {
+				let imgTag = '<img src="https://raw.githubusercontent.com/ryouya-deushi/quiz_wedding/develop/icon.jpg" style="height: 1em; vertical-align: +0.001em; cursor: pointer;" onclick="clickImage()">';
+				document.getElementById("quiz-title").innerHTML = `${imgTag}Quiz`;
 				document.body.classList.add("transparent-background");
 				document.getElementById("passwordPrompt").innerText = "ご回答ありがとうございました！";
 				const txtbox = document.getElementById("passwdBox");
@@ -20,7 +23,7 @@ window.onload = function() {
 				const btn = document.getElementById("passwdBtn");
 	        		btn.value = "Click!";
 				let isClicked = false;
-	        		let score = localStorage.getItem("quizScore");
+	        		lastscore = parseInt(localStorage.getItem("quizScore") || "0", 10);
 	        		let originalText = resultBox.innerHTML; // 初期状態を保存
 	        		btn.onclick = function() {
 				if(isClicked){
@@ -29,11 +32,11 @@ window.onload = function() {
 					btn.value = "Click!";
 				} else {
 					originalText = resultBox.innerHTML; // 変更前のテキストを保存（毎回必ず）
-					if(score <= 3){
+					if(lastscore <= 3){
 							resultBox.style.color = "blue";
-						} else if(score > 3 && score <= 6){
+						} else if(lastscore > 3 && lastscore <= 6){
 							resultBox.style.color = "green";
-						} else if(score > 6 && score <= 9){
+						} else if(lastscore > 6 && lastscore <= 9){
 							resultBox.style.color = "red";
 						} else {
 							rainbowTextWithBr("resultBox");
@@ -44,6 +47,11 @@ window.onload = function() {
 		            };
 			}
 		};
+
+		function clickImage() {
+	        	alert("Thanks for finding it. In return, I'll make it rainbow-colored for you.");
+	        	lastscore = 10;
+	        }
 		
 		document.getElementById('loginSection').style.display = 'block';
 		
