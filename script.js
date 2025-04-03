@@ -49,7 +49,7 @@ window.onload = function() {
 		};
 
 		function clickImage() {
-	        	alert("見つけてくれてありがとう！お礼に虹色にしてあげる。");
+	        	alert("見つけてくれてありがとう！お礼に虹色にしてあげる");
 	        	lastscore = 10;
 	        }
 		
@@ -110,10 +110,10 @@ window.onload = function() {
 		function startQuiz(sectionId) {
 			let name = document.getElementById("YourName").value;
 			if (name.trim() === "") {
-				alert("名前を入力してください。");
+				alert("名前を入力してください");
 				return;
 			} else if (name.length > 10) {
-				alert("名前は10文字以内で入力してください。");
+				alert("名前は10文字以内で入力してください");
 				return;
 			}
 			document.getElementById("welcomeMessage").innerText = `${name}様`;
@@ -125,7 +125,7 @@ window.onload = function() {
 		function receiveForm() {
 			document.getElementById("passwdBtn").disabled = true;
 			document.getElementById("passwdBox").disabled = true;
-			document.getElementById("resultBox").innerText = "認証中。少々お待ちください。";
+			document.getElementById("resultBox").innerText = "認証中 少々お待ちください";
 			const inputValue = document.getElementById('passwdBox').value.toLowerCase();
 			const GET_options = {
 				method: "GET",
@@ -138,14 +138,14 @@ window.onload = function() {
 			if (inputValue === cellValue) {
 				authenticate('inputNameSection');
 			} else {
-			  document.getElementById("resultBox").innerText = "パスワードが間違っています。再度入力してください。";
+			  document.getElementById("resultBox").innerText = "パスワードが間違っています 再度入力してください";
 			  document.getElementById("passwdBtn").disabled = false;
 			  document.getElementById("passwdBox").disabled = false;
 			}
 			})
 			.catch((error) => {
 				console.error('Error:', error);
-				alert("エラーが発生しました。再度お試しください。");
+				alert("エラーが発生しました 再度お試しください");
 				document.getElementById("passwdBtn").disabled = false;
 				document.getElementById("passwdBox").disabled = false;
 			});
@@ -241,7 +241,7 @@ window.onload = function() {
 			}
 			document.getElementById("submitBtn").disabled = true;
 			document.getElementById("preBtn10").disabled = true;
-			document.getElementById("ptext").innerText = "送信中。少々お待ちください。";
+			document.getElementById("ptext").innerText = "送信中 少々お待ちください";
 			const formData = new FormData(document.getElementById('testForm'));
 			const data = {};
 			formData.forEach((value, key) => {
@@ -269,14 +269,14 @@ window.onload = function() {
 					localStorage.setItem("quizData", JSON.stringify(data));
 					localStorage.setItem("quizScore", JSON.stringify(score));
 	            } else {
-					document.getElementById("ptext").innerText = "送信失敗。再度お試しください。";
+					document.getElementById("ptext").innerText = "送信失敗 再度お試しください";
 	                document.getElementById("submitBtn").disabled = false;
 					document.getElementById("preBtn10").disabled = false;
 	            }
 	        })
 	        .catch(error => {
 	            console.error('Error:', error);
-	            alert("エラーが発生しました。再度お試しください。");
+	            alert("エラーが発生しました 再度お試しください");
 	            document.getElementById("submitBtn").disabled = false;
 				document.getElementById("preBtn10").disabled = false;
 	        });
