@@ -49,7 +49,7 @@ window.onload = function() {
 		};
 
 		function clickImage() {
-	        	alert("見つけてくれてありがとう！お礼に虹色にしてあげる");
+	        	alert("見つけてくれてありがとう！お礼に虹色を見せてあげる");
 	        	lastscore = 10;
 	        }
 		
