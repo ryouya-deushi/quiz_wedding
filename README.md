@@ -1,12 +1,6 @@
 # quiz_wedding
-パスワードはスプレッドシートに記載しておく。
-
-submitされた回答はスプレッドシートに書き込まれる。
-
-これらのコードはGAS_memoに記載しておく。
-
-https://docs.google.com/spreadsheets/d/【スプレッドシートID】/edit#gid=【シートID】
-
-XXXXにはスプレッドシートIDを記載すること。
-
-今回は結果の出力をresultシートに書き込み、パスをpasswdシートから読み込んでいる。
+スプレッドシートの作成
+ googleドライブにスプレッドシートを作成し、"result", "passwd"シートを作成。
+ GAS_memo.txtのコードを拡張機能のAppScriptにデプロイ。（XXXXにはスプレッドシートIDを記載すること）
+ パスワードはスプレッドシートの"passwd"シートのA1に記載しておく。
+ submitされた回答は"result"シートに書き込まれ、点数の高い順にソートされる。
