@@ -120,7 +120,7 @@ window.onload = function() {
 			authenticate(sectionId);
 		}
 		
-		
+		// GASのデプロイ管理より、ウェブアプリのurl
 		const url = "https://script.google.com/macros/s/AKfycbzL31iwqTDoJdt-n17ACUcm75dl68Uy5YvHgoPtWZWsqVvEJMVfjcNY3ybA3rrbznbswg/exec";
 		function receiveForm() {
 			document.getElementById("passwdBtn").disabled = true;
